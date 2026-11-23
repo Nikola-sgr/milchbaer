@@ -10,7 +10,7 @@ crons = ["* * * * *"]
 [[d1_databases]]
 binding = "DB"
 database_name = "milchbaer"
-database_id = "00000000-0000-0000-0000-000000000000"
+database_id = "04c22695-a712-469d-a6b0-e6a6c12cd56e"
 
 [vars]
 ALLOWED_ORIGINS = "https://nikola-sgr.github.io,http://localhost:8080"

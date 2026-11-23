@@ -72,12 +72,14 @@ cd worker && node test/e2e-local.mjs # Backend Ende-zu-Ende gegen "wrangler dev"
 ```bash
 cd worker
 npx wrangler login
-npx wrangler d1 create milchbaer                       # database_id in wrangler.toml eintragen
+npx wrangler d1 create milchbaer --location weur      # database_id in wrangler.toml eintragen
 npx wrangler d1 execute milchbaer --remote --file schema.sql
 npx wrangler secret put VAPID_PRIVATE_KEY
 npx wrangler deploy
 ```
 
-Danach die Worker-Adresse in `js/config.js` (`PUSH_API_URL`) eintragen. Neue VAPID-Schlüssel erzeugt `node tools/gen-vapid.mjs`. Nach einem Schlüsselwechsel melden sich die Geräte beim nächsten Öffnen der App automatisch neu an.
+Danach die Worker-Adresse in `js/config.js` (`PUSH_API_URL`) eintragen (aktuell `https://milchbaer-push.milchbaer-push.workers.dev`).
+
+Neue VAPID-Schlüssel erzeugt `node tools/gen-vapid.mjs`. Nach einem Schlüsselwechsel melden sich die Geräte beim nächsten Öffnen der App automatisch neu an.
 
 Kosten: Alles läuft im kostenlosen Rahmen von GitHub Pages und Cloudflare Workers (inkl. D1 und Cron-Trigger).

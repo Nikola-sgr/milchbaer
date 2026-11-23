@@ -10,7 +10,7 @@
   root.MB = root.MB || {};
   root.MB.config = {
     VERSION: '1.0.0',
-    PUSH_API_URL: local ? 'http://localhost:8787' : 'https://milchbaer-push.WORKERS_SUBDOMAIN.workers.dev',
+    PUSH_API_URL: local ? 'http://localhost:8787' : 'https://milchbaer-push.milchbaer-push.workers.dev',
     VAPID_PUBLIC_KEY: 'BFvi-GnxIVAbGfo6EsLjJTHhVLin07Of6HADsOw_o_ldGCdB1H8O9D2uV22f1-Qa3YcDcpZwMopwthk6Jc1YyHU',
   };
 })(typeof self !== 'undefined' ? self : globalThis);

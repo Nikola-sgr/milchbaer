@@ -6,7 +6,7 @@
 
 importScripts('js/config.js', 'js/logic.js', 'js/store.js');
 
-const VERSION = 'v1.0.2';
+const VERSION = 'v1.0.3';
 const CACHE = 'milchbaer-' + VERSION;
 const ASSETS = [
   './',
