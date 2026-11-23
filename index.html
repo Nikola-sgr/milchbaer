@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Milchbär</title>
+  <meta name="description" content="Ruhige, minimalistische Still-App.">
+  <meta name="theme-color" content="#F5EFE6" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1B1612" media="(prefers-color-scheme: dark)">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Milchbär">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="icons/icon-192.png" sizes="192x192" type="image/png">
+  <script>
+    try {
+      var t = localStorage.getItem('mb-theme');
+      if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  </script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app" class="app" data-view="home">
+    <main class="views">
+
+      <!-- Start -->
+      <section id="view-home" class="view view-home" aria-label="Stillen">
+        <header class="brand">Milchbär</header>
+        <div class="bear-stage" id="bear-home"></div>
+        <div class="hints">
+          <p id="hint-last" class="hint"></p>
+          <p id="hint-next" class="hint hint-soft" hidden></p>
+        </div>
+        <div class="sides">
+          <button class="side-btn" type="button" data-side="left">
+            <span class="side-name">Links</span>
+            <span class="side-tag" aria-hidden="true">zuletzt</span>
+          </button>
+          <button class="side-btn" type="button" data-side="right">
+            <span class="side-name">Rechts</span>
+            <span class="side-tag" aria-hidden="true">zuletzt</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Laufende Sitzung -->
+      <section id="view-session" class="view view-session" aria-label="Laufende Sitzung">
+        <div class="session-top">
+          <span class="pill" id="session-side">Links</span>
+          <span class="session-since" id="session-since"></span>
+        </div>
+        <div class="bear-stage bear-live" id="bear-session"></div>
+        <div class="timer" id="timer" role="timer" aria-live="off">00:00</div>
+        <button class="stop-btn" type="button" id="stop-btn">Stopp</button>
+      </section>
+
+      <!-- Verlauf -->
+      <section id="view-history" class="view view-history" aria-label="Verlauf">
+        <header class="view-header"><h1>Verlauf</h1></header>
+        <div class="scroll" id="history-scroll">
+          <div id="history-list"></div>
+        </div>
+      </section>
+
+      <!-- Einstellungen -->
+      <section id="view-settings" class="view view-settings" aria-label="Einstellungen">
+        <header class="view-header"><h1>Einstellungen</h1></header>
+        <div class="scroll">
+
+          <div class="card">
+            <div class="row">
+              <div class="row-text">
+                <span class="row-title">Erinnerungen</span>
+                <span class="row-sub" id="rem-status">Aus</span>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="rem-toggle" role="switch" aria-label="Erinnerungen">
+                <span class="switch-ui" aria-hidden="true"></span>
+              </label>
+            </div>
+            <p class="note" id="rem-hint" hidden></p>
+
+            <div id="rem-details" hidden>
+              <div class="row row-stack">
+                <span class="row-title">Abstand tagsüber</span>
+                <div class="stepper" data-key="dayIntervalMin">
+                  <button type="button" data-step="-1" aria-label="Kürzer">−</button>
+                  <output></output>
+                  <button type="button" data-step="1" aria-label="Länger">+</button>
+                </div>
+              </div>
+              <div class="row">
+                <span class="row-title">Nachts erinnern</span>
+                <label class="switch">
+                  <input type="checkbox" id="night-toggle" role="switch" aria-label="Nachts erinnern">
+                  <span class="switch-ui" aria-hidden="true"></span>
+                </label>
+              </div>
+              <div class="row row-stack" id="night-interval-row">
+                <span class="row-title">Abstand nachts</span>
+                <div class="stepper" data-key="nightIntervalMin">
+                  <button type="button" data-step="-1" aria-label="Kürzer">−</button>
+                  <output></output>
+                  <button type="button" data-step="1" aria-label="Länger">+</button>
+                </div>
+              </div>
+              <div class="row">
+                <span class="row-title">Nacht</span>
+                <div class="time-range">
+                  <input type="time" id="night-start" aria-label="Nacht beginnt">
+                  <span aria-hidden="true">–</span>
+                  <input type="time" id="night-end" aria-label="Nacht endet">
+                </div>
+              </div>
+
+              <div class="suggest" id="suggest" hidden>
+                <p id="suggest-text"></p>
+                <p class="note">Nur ein Vorschlag. Deine Einstellungen ändern sich nie von selbst.</p>
+                <button type="button" class="btn btn-soft" id="suggest-apply">Vorschlag übernehmen</button>
+              </div>
+
+              <p class="note">Gezählt wird ab dem Beginn der letzten Mahlzeit. Beginnt eine Sitzung bis 15&nbsp;Min. nach der vorigen, gehört sie noch dazu.</p>
+              <button type="button" class="btn btn-soft" id="rem-test">Test-Erinnerung senden</button>
+            </div>
+
+            <p class="note note-care">Die Erinnerung ist nur eine Orientierung. Hungerzeichen deines Babys gehen immer vor.</p>
+          </div>
+
+          <div class="card">
+            <div class="row">
+              <span class="row-title">Darstellung</span>
+              <div class="segmented" id="theme-seg" role="radiogroup" aria-label="Darstellung">
+                <button type="button" role="radio" data-theme-value="auto">Auto</button>
+                <button type="button" role="radio" data-theme-value="light">Hell</button>
+                <button type="button" role="radio" data-theme-value="dark">Dunkel</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <span class="row-title">Daten</span>
+            <p class="note">Deine Stilldaten bleiben nur auf diesem Gerät. Sichere sie ab und zu als Datei, z.&nbsp;B. vor einem Handywechsel.</p>
+            <div class="btn-row">
+              <button type="button" class="btn btn-soft" id="export-btn">Exportieren</button>
+              <button type="button" class="btn btn-soft" id="import-btn">Importieren</button>
+            </div>
+            <input type="file" id="import-file" accept="application/json,.json,text/plain" hidden>
+          </div>
+
+          <p class="footer" id="footer">Milchbär</p>
+        </div>
+      </section>
+    </main>
+
+    <nav class="tabbar" aria-label="Navigation">
+      <button type="button" data-nav="home" aria-label="Stillen">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6.6" cy="6.4" r="2.7"/><circle cx="17.4" cy="6.4" r="2.7"/><circle class="tab-fill" cx="12" cy="13.2" r="7.6"/><circle class="tab-dot" cx="9.3" cy="12.2" r="1"/><circle class="tab-dot" cx="14.7" cy="12.2" r="1"/><ellipse cx="12" cy="15.9" rx="2.7" ry="2"/></svg>
+        <span>Stillen</span>
+      </button>
+      <button type="button" data-nav="history" aria-label="Verlauf">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.6"/><path d="M12 7.4V12l3.2 2"/></svg>
+        <span>Verlauf</span>
+      </button>
+      <button type="button" data-nav="settings" aria-label="Einstellungen">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7.5h9M18.5 7.5H20M4 16.5h2.5M11.5 16.5H20"/><circle cx="15.8" cy="7.5" r="2.4"/><circle cx="9" cy="16.5" r="2.4"/></svg>
+        <span>Einstellungen</span>
+      </button>
+    </nav>
+  </div>
+
+  <dialog id="sheet" class="sheet">
+    <form method="dialog" class="sheet-inner">
+      <h2 id="sheet-title"></h2>
+      <p id="sheet-text"></p>
+      <div class="sheet-actions" id="sheet-actions"></div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/logic.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/bear.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

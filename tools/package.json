@@ -1,0 +1,13 @@
+{
+  "name": "milchbaer-tools",
+  "private": true,
+  "type": "module",
+  "description": "Nur für die Entwicklung: Icons erzeugen und Tests. Die App selbst braucht keinen Build-Schritt.",
+  "scripts": {
+    "icons": "node make-icons.mjs",
+    "test": "node --test ../tests/"
+  },
+  "devDependencies": {
+    "@resvg/resvg-js": "2.6.2"
+  }
+}

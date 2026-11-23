@@ -1,0 +1,22 @@
+name = "milchbaer-push"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+workers_dev = true
+
+# Jede Minute fällige Erinnerungen verschicken
+[triggers]
+crons = ["* * * * *"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "milchbaer"
+database_id = "00000000-0000-0000-0000-000000000000"
+
+[vars]
+ALLOWED_ORIGINS = "https://nikola-sgr.github.io,http://localhost:8080"
+VAPID_SUBJECT = "https://nikola-sgr.github.io/milchbaer/"
+VAPID_PUBLIC_KEY = "BFvi-GnxIVAbGfo6EsLjJTHhVLin07Of6HADsOw_o_ldGCdB1H8O9D2uV22f1-Qa3YcDcpZwMopwthk6Jc1YyHU"
+# Secret (nicht hier eintragen): VAPID_PRIVATE_KEY  ->  npx wrangler secret put VAPID_PRIVATE_KEY
+
+[observability]
+enabled = true

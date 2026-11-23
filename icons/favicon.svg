@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512"><rect width="512" height="512" rx="112" fill="#F3EBDF"/><g transform="translate(-51.19999999999999 12.799999999999983) scale(2.56)">
+  <circle cx="76" cy="57" r="21" fill="#FCF8F2" stroke="#8C6A50" stroke-width="5.5"/>
+  <circle cx="164" cy="57" r="21" fill="#FCF8F2" stroke="#8C6A50" stroke-width="5.5"/>
+  <circle cx="76" cy="57" r="10" fill="#EBDAC4"/>
+  <circle cx="164" cy="57" r="10" fill="#EBDAC4"/>
+  <circle cx="120" cy="97" r="56" fill="#FCF8F2" stroke="#8C6A50" stroke-width="5.5"/>
+  <circle cx="86" cy="113" r="8.5" fill="#E9B9A3" opacity="0.55"/>
+  <circle cx="154" cy="113" r="8.5" fill="#E9B9A3" opacity="0.55"/>
+  <circle cx="100" cy="93" r="5.5" fill="#8C6A50"/>
+  <circle cx="140" cy="93" r="5.5" fill="#8C6A50"/>
+  <ellipse cx="120" cy="117" rx="22" ry="16" fill="#EBDAC4" stroke="#8C6A50" stroke-width="5"/>
+  <path d="M111.5 109.5q8.5-5 17 0q-2.5 7-8.5 8q-6-1-8.5-8z" fill="#8C6A50"/>
+  <path d="M120 117.5v4.5M120 122q-5 5.5-10 2M120 122q5 5.5 10 2" fill="none" stroke="#8C6A50" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></g></svg>

@@ -1,0 +1,8 @@
+node_modules/
+.wrangler/
+.dev.vars
+.vapid.tmp
+worker/.dev.vars
+worker/.vapid.tmp
+.DS_Store
+.claude/
